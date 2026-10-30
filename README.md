@@ -100,7 +100,6 @@
 详细测试环境、方法与逐项证据见 [docs/COMPATIBILITY.md](docs/COMPATIBILITY.md)，架构说明见 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)。
 
 ![无边框全屏](https://cdn.jsdelivr.net/gh/Calaberry/StillPoint@main/docs/images/fullscreen-borderless.png)
-![独占全屏（浮层不可见，属预期限制）](https://cdn.jsdelivr.net/gh/Calaberry/StillPoint@main/docs/images/fullscreen-exclusive.png)
 
 ---
 
