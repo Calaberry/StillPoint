@@ -1,0 +1,31 @@
+# 构建产物
+bin/
+obj/
+dist/
+*.user
+*.suo
+.vs/
+
+# 本地便携工具链（SDK / gh / git），不进版本库
+.dotnet/
+.tools/
+
+# 测量脚本保留，生成的截图与日志不保留
+analysis/shots/
+analysis/crops/
+analysis/crops2/
+analysis/crops3/
+analysis/crops4/
+analysis/crops5/
+analysis/crops6/
+analysis/*.png
+analysis/*.log
+analysis/*.txt
+analysis/*.json
+
+# 系统文件
+Thumbs.db
+desktop.ini
+
+# 参考截图相关（游戏画面版权归 Activision，不分发）
+screenshot-annotated.png

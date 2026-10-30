@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <AssemblyName>StillPoint</AssemblyName>
+    <RootNamespace>StillPoint</RootNamespace>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Resources\StillPoint.ico</ApplicationIcon>
+    <Version>0.1.0</Version>
+    <Company>StillPoint</Company>
+    <Product>StillPoint</Product>
+    <Description>Comfort Overlay — a 16-dot anti-motion-sickness overlay for Windows games.</Description>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <DebugType>embedded</DebugType>
+    <!-- WinForms is only here for the tray icon; the WinForms high-DPI analyzer advice (move DPI
+         awareness out of app.manifest) would change the DPI behaviour that we verified at 125%. -->
+    <NoWarn>$(NoWarn);WFAC010</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- WinForms is only used for the tray icon; drop its global usings so WPF types stay unambiguous. -->
+    <Using Remove="System.Windows.Forms" />
+    <Using Remove="System.Drawing" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\**\*" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>FakeGame</AssemblyName>
+    <RootNamespace>FakeGame</RootNamespace>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <StartupObject>FakeGame.App</StartupObject>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+</PropertyGroup>
+
+</Project>

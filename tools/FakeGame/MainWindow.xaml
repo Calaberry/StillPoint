@@ -1,0 +1,167 @@
+<Window x:Class="FakeGame.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="FakeGame — borderless fullscreen test"
+        Width="2048" Height="1152"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        WindowStartupLocation="Manual"
+        ShowInTaskbar="True"
+        Topmost="False"
+        AllowsTransparency="False"
+        Background="#05070D"
+        UseLayoutRounding="True"
+        SnapsToDevicePixels="True"
+        Loaded="Window_Loaded"
+        Closing="Window_Closing"
+        KeyDown="Window_KeyDown">
+
+    <Window.Resources>
+        <Style x:Key="FakeButton" TargetType="Button">
+            <Setter Property="Background" Value="#FF18233C" />
+            <Setter Property="Foreground" Value="#FFEAF4FF" />
+            <Setter Property="BorderBrush" Value="#FF4DA3FF" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="FontSize" Value="17" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+    </Window.Resources>
+
+    <Grid x:Name="Root" ClipToBounds="True" Background="#05070D">
+
+        <!-- Slowly rotating oversized gradient = the "scene" backdrop -->
+        <Rectangle x:Name="GradientRect" Width="3400" Height="3400"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                   RenderTransformOrigin="0.5,0.5" IsHitTestVisible="False">
+            <Rectangle.RenderTransform>
+                <RotateTransform x:Name="GradientRotate" Angle="0" />
+            </Rectangle.RenderTransform>
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#FF06101F" Offset="0" />
+                    <GradientStop Color="#FF17255C" Offset="0.32" />
+                    <GradientStop Color="#FF43206B" Offset="0.58" />
+                    <GradientStop Color="#FF0F4A5B" Offset="0.82" />
+                    <GradientStop Color="#FF06101F" Offset="1" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <!-- Soft moving colour blobs -->
+        <Canvas x:Name="BlobLayer" IsHitTestVisible="False">
+            <Ellipse x:Name="Blob1" Width="1100" Height="820" Opacity="0.55" Canvas.Left="-550" Canvas.Top="-410">
+                <Ellipse.Fill>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#8033C8FF" Offset="0" />
+                        <GradientStop Color="#0033C8FF" Offset="1" />
+                    </RadialGradientBrush>
+                </Ellipse.Fill>
+                <Ellipse.RenderTransform>
+                    <TranslateTransform x:Name="Blob1Transform" />
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse x:Name="Blob2" Width="1000" Height="760" Opacity="0.50" Canvas.Left="-500" Canvas.Top="-380">
+                <Ellipse.Fill>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#80FF5CC8" Offset="0" />
+                        <GradientStop Color="#00FF5CC8" Offset="1" />
+                    </RadialGradientBrush>
+                </Ellipse.Fill>
+                <Ellipse.RenderTransform>
+                    <TranslateTransform x:Name="Blob2Transform" />
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse x:Name="Blob3" Width="800" Height="640" Opacity="0.45" Canvas.Left="-400" Canvas.Top="-320">
+                <Ellipse.Fill>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#8066FFB3" Offset="0" />
+                        <GradientStop Color="#0066FFB3" Offset="1" />
+                    </RadialGradientBrush>
+                </Ellipse.Fill>
+                <Ellipse.RenderTransform>
+                    <TranslateTransform x:Name="Blob3Transform" />
+                </Ellipse.RenderTransform>
+            </Ellipse>
+        </Canvas>
+
+        <!-- Moving scanline band -->
+        <Rectangle x:Name="Scanline" Height="240" VerticalAlignment="Top" IsHitTestVisible="False" Opacity="0.13">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="#008EF0FF" Offset="0" />
+                    <GradientStop Color="#FF8EF0FF" Offset="0.5" />
+                    <GradientStop Color="#008EF0FF" Offset="1" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+            <Rectangle.RenderTransform>
+                <TranslateTransform x:Name="ScanlineTransform" />
+            </Rectangle.RenderTransform>
+        </Rectangle>
+
+        <!-- Vignette -->
+        <Rectangle IsHitTestVisible="False">
+            <Rectangle.Fill>
+                <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.72" RadiusY="0.72">
+                    <GradientStop Color="#00000000" Offset="0" />
+                    <GradientStop Color="#A6000000" Offset="1" />
+                </RadialGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <!-- Centered game title + live counters -->
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False">
+            <TextBlock Text="BORDERLESS FULLSCREEN TEST"
+                       FontFamily="Segoe UI"
+                       FontSize="64" FontWeight="Bold"
+                       Foreground="White"
+                       HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect BlurRadius="26" ShadowDepth="0" Opacity="0.9" Color="Black" />
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="FakeGame · borderless window covering the primary monitor · Esc to exit"
+                       FontFamily="Segoe UI" FontSize="22" Foreground="#FFB9C9E8"
+                       HorizontalAlignment="Center" Margin="0,14,0,0" />
+            <TextBlock Text="Click BUTTON A / BUTTON B — a click-count increment proves mouse input reached this window."
+                       FontFamily="Segoe UI" FontSize="18" Foreground="#FF8B9BC0"
+                       HorizontalAlignment="Center" Margin="0,10,0,0" />
+        </StackPanel>
+
+        <!-- Top-left live status panel -->
+        <Border HorizontalAlignment="Left" VerticalAlignment="Top" Margin="28,24,0,0"
+                Padding="18,14" Background="#8C05070D" BorderBrush="#4D8EF0FF"
+                BorderThickness="1" CornerRadius="6" IsHitTestVisible="False">
+            <StackPanel>
+                <TextBlock x:Name="ModeText" Text="MODE: fullscreen" FontFamily="Consolas" FontSize="18" Foreground="#FF8EF0FF" />
+                <TextBlock x:Name="FrameText" Text="FRAME 0" FontFamily="Consolas" FontSize="18" Foreground="White" />
+                <TextBlock x:Name="FpsText" Text="FPS --" FontFamily="Consolas" FontSize="18" Foreground="#FFC8D6FF" />
+                <TextBlock x:Name="RectText" Text="RECT --" FontFamily="Consolas" FontSize="16" Foreground="#FF9AA8C8" />
+            </StackPanel>
+        </Border>
+
+        <!-- Floating fake game menu bar, kept above the taskbar area -->
+        <Border x:Name="UiBar" VerticalAlignment="Bottom" Height="76"
+                Margin="28,0,28,64"
+                Background="#D9080D18" BorderBrush="#4D8EF0FF" BorderThickness="2" CornerRadius="8">
+            <Grid Margin="24,0">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button x:Name="ButtonA" Style="{StaticResource FakeButton}"
+                            Width="170" Height="48" Content="BUTTON A"
+                            Click="FakeButton_Click" />
+                    <TextBlock x:Name="CountA" Text="A clicks: 0" FontFamily="Consolas" FontSize="19"
+                               Foreground="#FFFFD166" VerticalAlignment="Center" Margin="16,0,0,0" />
+                    <Button x:Name="ButtonB" Style="{StaticResource FakeButton}"
+                            Width="170" Height="48" Content="BUTTON B"
+                            Margin="36,0,0,0" Click="FakeButton_Click" />
+                    <TextBlock x:Name="CountB" Text="B clicks: 0" FontFamily="Consolas" FontSize="19"
+                               Foreground="#FFFFD166" VerticalAlignment="Center" Margin="16,0,0,0" />
+                </StackPanel>
+                <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center"
+                           Text="FakeGame test harness — Esc closes" FontFamily="Segoe UI"
+                           FontSize="16" Foreground="#FF8B9BC0" IsHitTestVisible="False" />
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
