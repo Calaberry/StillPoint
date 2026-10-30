@@ -4,7 +4,10 @@
 
 长时间玩第一人称 / 高速 3D 游戏容易产生眩晕，业界常用做法是在画面上叠一层固定的「舒适点」：让视野里始终有静止的参照物，大脑对运动的冲突感会明显下降。StillPoint 把这件事做成一个独立、轻量、跨游戏的小工具——不需要任何游戏本体支持，不注入、不 Hook、不改游戏文件。
 
-![截图：设置窗口](docs/images/settings-top.png)
+![截图：设置窗口](https://cdn.jsdelivr.net/gh/Calaberry/StillPoint@main/docs/images/settings-top.png)
+
+> 图片走 jsDelivr CDN，避免 raw.githubusercontent.com 在部分网络下不可达；离线看可用仓库里的 `docs/images/` 原图。
+
 
 ---
 
@@ -73,11 +76,11 @@
 | 运行与兼容性 | 浮层状态与覆盖显示器、隐藏/显示点阵、全局快捷键（可改、可关）、当前前台窗口与窗口模式、三条兼容性说明 |
 | 底栏 | 版本号、重置全部设置、退出 StillPoint |
 
-![自选颜色：内置 HSV 取色器](docs/images/colour-picker.png)
+![自选颜色：内置 HSV 取色器](https://cdn.jsdelivr.net/gh/Calaberry/StillPoint@main/docs/images/colour-picker.png)
 
 深色主题（`外观 → 界面 → 深色`，原地切换并记住选择）：
 
-![深色主题](docs/images/settings-dark.png)
+![深色主题](https://cdn.jsdelivr.net/gh/Calaberry/StillPoint@main/docs/images/settings-dark.png)
 
 所有滑杆都是即时生效：拖动的同时预览与真实浮层一起变，松手后 0.4 秒防抖写入磁盘。
 
@@ -96,8 +99,8 @@
 
 详细测试环境、方法与逐项证据见 [docs/COMPATIBILITY.md](docs/COMPATIBILITY.md)，架构说明见 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)。
 
-![无边框全屏](docs/images/fullscreen-borderless.png)
-![独占全屏（浮层不可见，属预期限制）](docs/images/fullscreen-exclusive.png)
+![无边框全屏](https://cdn.jsdelivr.net/gh/Calaberry/StillPoint@main/docs/images/fullscreen-borderless.png)
+![独占全屏（浮层不可见，属预期限制）](https://cdn.jsdelivr.net/gh/Calaberry/StillPoint@main/docs/images/fullscreen-exclusive.png)
 
 ---
 
